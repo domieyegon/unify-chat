@@ -10,7 +10,16 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+    open-in-view: false
 
   cache:
     caffeine:
       spec: maximumSize=100
+
+
+server:
+  error:
+    include-binding-errors: always
+    include-message: always
+    include-stacktrace: on_param
+    include-exception: false

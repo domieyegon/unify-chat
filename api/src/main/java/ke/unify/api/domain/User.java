@@ -16,6 +16,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String fullName;
     private String username;
     private String email;
     private String msisdn;
@@ -31,30 +32,13 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFullName() {
+        return fullName;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -73,13 +57,6 @@ public class User implements UserDetails {
 
     public void setMsisdn(String msisdn) {
         this.msisdn = msisdn;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(roles.split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
     }
 
     public String getPassword() {
@@ -105,6 +82,45 @@ public class User implements UserDetails {
     public void setRoles(String roles) {
         this.roles = roles;
     }
+
+
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (roles == null){
+            roles = "UNKNOWN";
+        }
+
+        return Arrays.stream(roles.split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 
     @Override
     public String toString() {
