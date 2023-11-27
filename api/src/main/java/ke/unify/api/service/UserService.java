@@ -36,7 +36,7 @@ public class UserService implements UserDetailsService {
     public void createAccount(RegistrationRequest request) throws BadRequestException {
 
         if (!EmailUtil.validate(request.getEmail())){
-            throw new BadRequestException("Email is not valid");
+            throw new BadRequestException("Please provide a valid email address");
         }
         if (userRepository.existsByUsername(request.getEmail())){
             throw new BadRequestException("Email already in use");
