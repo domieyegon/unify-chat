@@ -1,8 +1,9 @@
 package ke.unify.api.service;
 
+import jakarta.transaction.Transactional;
 import ke.unify.api.domain.User;
 import ke.unify.api.repository.UserRepository;
-import ke.unify.api.service.util.EmailUtil;
+import ke.unify.api.service.util.UserUtil;
 import ke.unify.api.web.rest.advice.exception.BadRequestException;
 import ke.unify.api.web.rest.request.RegistrationRequest;
 import org.slf4j.Logger;
@@ -33,27 +34,17 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username)
                 .orElseThrow(()-> new UsernameNotFoundException("User not found "+ username));
     }
+
+    @Transactional
     public void createAccount(RegistrationRequest request) throws BadRequestException {
 
-        if (!EmailUtil.validate(request.getEmail())){
+        if (!UserUtil.validateEmail(request.getEmail())){
             throw new BadRequestException("Please provide a valid email address");
         }
         if (userRepository.existsByUsername(request.getEmail())){
             throw new BadRequestException("Email already in use");
         }
-        User user = registrationMapper(request);
+        User user = UserUtil.createUserObj(request, passwordEncoder);
         userRepository.save(user);
-    }
-
-    private User registrationMapper(RegistrationRequest request){
-        User user = new User();
-        user.setFullName(request.getFullName());
-        user.setUsername(request.getEmail());
-        user.setEmail(request.getEmail());
-        user.setMsisdn(request.getMsisdn());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setActive(false);
-        user.setRoles(request.getRoles());
-        return user;
     }
 }
