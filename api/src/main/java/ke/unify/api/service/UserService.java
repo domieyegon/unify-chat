@@ -1,8 +1,9 @@
 package ke.unify.api.service;
 
-import jakarta.transaction.Transactional;
 import ke.unify.api.domain.User;
 import ke.unify.api.repository.UserRepository;
+import ke.unify.api.service.dto.UserDTO;
+import ke.unify.api.service.mapper.UserMapper;
 import ke.unify.api.service.util.UserUtil;
 import ke.unify.api.web.rest.advice.exception.BadRequestException;
 import ke.unify.api.web.rest.request.RegistrationRequest;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -21,11 +23,12 @@ public class UserService implements UserDetailsService {
     private final Logger logger = LoggerFactory.getLogger(UserService.class);
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
-
-    public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -46,5 +49,10 @@ public class UserService implements UserDetailsService {
         }
         User user = UserUtil.createUserObj(request, passwordEncoder);
         userRepository.save(user);
+    }
+
+    @Transactional(readOnly=true)
+    public UserDTO findById(Long userId) throws BadRequestException {
+        return userRepository.findById(userId).map(userMapper::toDto).orElseThrow(()->new BadRequestException("User not found"));
     }
 }
