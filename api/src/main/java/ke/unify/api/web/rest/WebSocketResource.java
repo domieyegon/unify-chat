@@ -33,12 +33,12 @@ public class WebSocketResource {
     }
 
     @MessageMapping("/chat")
-    public void saveAndSendMessage(@Payload ChatDTO chatDTO) throws URISyntaxException {
+    public void saveAndSendMessage(@Payload ChatDTO chatDTO) {
         logger.info("WebSocket request to save and send chat: {}", chatDTO);
 
         ChatDTO result = chatService.save(chatDTO);
 
         //Broadcast to all subscribers
-        messagingTemplate.convertAndSend("/topic/messages", chatDTO);
+        messagingTemplate.convertAndSend("/topic/messages", result);
     }
 }

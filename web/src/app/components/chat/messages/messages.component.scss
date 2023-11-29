@@ -1,0 +1,80 @@
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .chat-header {
+        padding: 1rem;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .chat-body {
+        flex: 1;
+        padding: 1rem;
+    }
+
+    .chat-footer {
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+
+        .input-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            margin-right: 8px;
+            padding: 10px 5px;
+            // border: 1px solid #888;
+            border-radius: 15px;
+            overflow: hidden;
+            background-color: #f1f3f5;
+
+            .emoji-button {
+                border: none;
+                // background-color: #fff;
+                background-color: #f1f3f5;
+                padding: 12px 5px 12px 12px;
+                font-size: 16px;
+                align-self: flex-end;
+            }
+
+            .chat-textarea {
+                flex: 1;
+                padding: 12px;
+                font-size: 16px;
+                border: none;
+                resize: none;
+                box-sizing: border-box;
+                // overflow-y: scroll; /* Ensure the textarea has a vertical scrollbar */
+                scrollbar-width: thin; /* For Firefox */
+                scrollbar-color: #ddd #f4f4f4; /* For Firefox */
+                line-height: 1.5;
+                background-color: #f1f3f5;
+
+                &:active,
+                &:focus {
+                    outline: none;
+                }
+
+                &::-webkit-scrollbar {
+                    width: 7px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: #ddd;
+                    border-radius: 15px;
+                }
+            }
+        }
+
+        .send-button {
+            align-self: flex-end;
+            font-size: 16px;
+            padding: 12px;
+            border: none;
+            background-color: #1330d4;
+            color: #fff;
+            border-radius: 15px;
+        }
+    }
+}

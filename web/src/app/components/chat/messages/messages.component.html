@@ -1,0 +1,20 @@
+<div class="chat-container">
+    <div class="chat-header">
+        <p>Header</p>
+    </div>
+    <div class="chat-body">
+        <p>Body</p>
+    </div>
+    <div class="chat-footer">
+        <div class="input-container">
+            <button class="emoji-button">😊</button>
+            <textarea #textareaInputField  
+            (input)="onInput()"
+            (keydown)="onKeyDown($event)" 
+            class="chat-textarea" rows="1" 
+            placeholder="Type message..." autofocus="true">
+        </textarea>
+        </div>
+        <button class="send-button" (click)="onClick()" type="button">Send</button>
+    </div>
+</div>
