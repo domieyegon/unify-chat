@@ -36,8 +36,8 @@ public class ChatResource {
         return ResponseEntity.created(new URI("/api/chats/"+result.getId())).body(result);
     }
 
-    @PostMapping
-    public ResponseEntity<List<ChatDTO>> getChats(@RequestParam() Long senderId, @RequestParam() Long receiverId, @RequestParam(required = false) Pageable pageable) throws URISyntaxException {
+    @GetMapping
+    public ResponseEntity<List<ChatDTO>> getConversations(@RequestParam() Long senderId, @RequestParam() Long receiverId, Pageable pageable) throws URISyntaxException {
         logger.info("REST request to get chats between: {} and {}", senderId, receiverId);
 
         Page<ChatDTO> page = chatService.findPageBySenderIdAndRecipientId(senderId, receiverId, pageable);

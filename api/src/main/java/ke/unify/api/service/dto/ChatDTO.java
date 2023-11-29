@@ -12,7 +12,7 @@ public class ChatDTO {
     private LocalDateTime readAt;
     private UserDTO sender;
     private UserDTO receiver;
-    private Boolean read;
+    private Boolean isRead;
 
     public Long getId() {
         return id;
@@ -63,11 +63,11 @@ public class ChatDTO {
     }
 
     public Boolean getRead() {
-        return read;
+        return isRead;
     }
 
     public void setRead(Boolean read) {
-        this.read = read;
+        isRead = read;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class ChatDTO {
                 ", readAt=" + readAt +
                 ", sender=" + sender +
                 ", receiver=" + receiver +
-                ", read=" + read +
+                ", isRead=" + isRead +
                 '}';
     }
 }

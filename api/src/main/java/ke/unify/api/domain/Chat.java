@@ -22,7 +22,7 @@ public class Chat {
     private LocalDateTime sentAt;
     private LocalDateTime readAt;
 
-    private Boolean read;
+    private Boolean isRead;
     @ManyToOne
     private User sender;
     @ManyToOne
@@ -76,12 +76,13 @@ public class Chat {
         this.receiver = receiver;
     }
 
+
     public Boolean getRead() {
-        return read;
+        return isRead;
     }
 
     public void setRead(Boolean read) {
-        this.read = read;
+        isRead = read;
     }
 
     @Override
@@ -91,7 +92,7 @@ public class Chat {
                 ", message='" + message + '\'' +
                 ", sentAt=" + sentAt +
                 ", readAt=" + readAt +
-                ", read=" + read +
+                ", isRead=" + isRead +
                 ", sender=" + sender +
                 ", receiver=" + receiver +
                 '}';
