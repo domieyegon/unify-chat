@@ -45,7 +45,7 @@ public class ChatService {
     )
     @Transactional
     public ChatDTO save(ChatDTO chatDTO)  {
-        if (chatDTO.getRead()){
+        if (chatDTO.getRead() != null &&  chatDTO.getRead()){
             chatDTO.setReadAt(LocalDateTime.now());
         } else {
             chatDTO.setRead(false);

@@ -3,7 +3,9 @@
         <p>Header</p>
     </div>
     <div class="chat-body">
-        <p>Body</p>
+        <ul>
+            <li *ngFor="let chat of receivedMessages">{{ chat?.message }}</li>
+        </ul>
     </div>
     <div class="chat-footer">
         <div class="input-container">
@@ -11,6 +13,7 @@
             <textarea #textareaInputField  
             (input)="onInput()"
             (keydown)="onKeyDown($event)" 
+            [(ngModel)]="chatForm.message"
             class="chat-textarea" rows="1" 
             placeholder="Type message..." autofocus="true">
         </textarea>

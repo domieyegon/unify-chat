@@ -11,6 +11,17 @@
     .chat-body {
         flex: 1;
         padding: 1rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        &::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #8d8a8a;
+            border-radius: 15px;
+        }
     }
 
     .chat-footer {

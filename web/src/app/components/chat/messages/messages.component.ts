@@ -1,10 +1,12 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { WebSocketService } from '../../../service/web-socket.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-messages',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.scss'
 })
@@ -14,8 +16,15 @@ export class MessagesComponent implements OnInit, AfterViewInit {
 
   maxHeight: number =0;
   textareaBorderWidth: number =0;
+  receivedMessages: any[] = [];
 
-  constructor(){
+  chatForm:any = {
+    message: '',
+  };
+  
+
+
+  constructor(private websocketService: WebSocketService){
   }
 
   ngAfterViewInit() {
@@ -26,9 +35,24 @@ export class MessagesComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
+    this.websocketService.initWebSocketConnection();
+    this.websocketService.messageReceived.subscribe((message: any) => {
+      this.receivedMessages.push(message);
+    });
+  }
+
+
+  sendMessage(): void {
+    this.websocketService.sendMessage(this.chatForm);
+    this.resetChatForm()
   }
   
   
+  resetChatForm(){
+    this.chatForm = {
+      message: '',
+    };
+  }
 
   onInput() {
     this.textarea.nativeElement.style.height = 'auto'; // Reset the height to auto
@@ -50,7 +74,6 @@ export class MessagesComponent implements OnInit, AfterViewInit {
   }
 
   private onSubmitOrPerformAction() {
-    // Add your submit or action logic here
-    console.log('Submit or perform action');
+    this.sendMessage()
   }
 }

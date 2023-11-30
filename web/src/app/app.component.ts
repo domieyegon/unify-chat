@@ -13,22 +13,11 @@ import { ChatComponent } from './components/chat/chat.component';
 })
 export class AppComponent implements OnInit {
   title = 'web';
-  receivedMessages: any[] = [];
 
 
-  constructor(private websocketService: WebSocketService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.websocketService.initWebSocketConnection();
-    this.websocketService.messageReceived.subscribe((message: string) => {
-      this.receivedMessages.push(message);
-    });
   }
 
-  sendMessage(): void {
-    const message = {
-      message: 'Hello, WebSocket!',
-    };
-    this.websocketService.sendMessage(message);
-  }
 }
