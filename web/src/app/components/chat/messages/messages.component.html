@@ -2,7 +2,7 @@
     <div class="chat-header">
         <p>Header</p>
     </div>
-    <div class="chat-body">
+    <div #messageBody class="chat-body">
         <ul>
             <li *ngFor="let chat of receivedMessages">{{ chat?.message }}</li>
         </ul>

@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 export class MessagesComponent implements OnInit, AfterViewInit {
 
   @ViewChild('textareaInputField') textarea!: ElementRef;
+  @ViewChild('messageBody') messageBody!: ElementRef;
 
   maxHeight: number =0;
   textareaBorderWidth: number =0;
@@ -74,6 +75,8 @@ export class MessagesComponent implements OnInit, AfterViewInit {
   }
 
   private onSubmitOrPerformAction() {
-    this.sendMessage()
+    this.sendMessage();
+    this.messageBody.nativeElement.scrollTop = this.messageBody.nativeElement.scrollHeight;
+    this.textarea.nativeElement.style.height = 'auto';
   }
 }
