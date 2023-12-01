@@ -33,6 +33,7 @@ export class LoginComponent {
     this.accountService.login(this.loginForm.value).subscribe({
       next: (res)=>{
         sessionStorage.setItem('X-Auth-Token', res.body.token);
+        sessionStorage.setItem('user', JSON.stringify(res.body.user));
         this.accountService.isLoggedIn.next(true);
         this.router.navigateByUrl("/");
         console.log(res);

@@ -2,24 +2,17 @@ package ke.unify.api.web.rest;
 
 import ke.unify.api.service.ChatService;
 import ke.unify.api.service.dto.ChatDTO;
-import ke.unify.api.web.rest.response.PaginationUtil;
+import ke.unify.api.service.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Controller
+@CrossOrigin
 public class WebSocketResource {
 
     private final Logger logger = LoggerFactory.getLogger(WebSocketResource.class);
@@ -30,6 +23,11 @@ public class WebSocketResource {
     public WebSocketResource(ChatService chatService, SimpMessagingTemplate messagingTemplate) {
         this.chatService = chatService;
         this.messagingTemplate = messagingTemplate;
+    }
+
+    @MessageMapping("/register")
+    public void register(UserDTO userDTO){
+        messagingTemplate.convertAndSend("/topic/registrations", userDTO);
     }
 
     @MessageMapping("/chat")

@@ -55,4 +55,10 @@ public class UserService implements UserDetailsService {
     public UserDTO findById(Long userId) throws BadRequestException {
         return userRepository.findById(userId).map(userMapper::toDto).orElseThrow(()->new BadRequestException("User not found"));
     }
+
+    @Transactional(readOnly=true)
+    public UserDTO findByUsername(String username) throws BadRequestException {
+        logger.info("Request to get User by username: {}", username);
+        return userRepository.findByUsername(username).map(userMapper::toDto).orElseThrow(()->new BadRequestException("User not found"));
+    }
 }

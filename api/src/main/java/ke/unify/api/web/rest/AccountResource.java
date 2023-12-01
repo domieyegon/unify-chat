@@ -2,6 +2,7 @@ package ke.unify.api.web.rest;
 
 import ke.unify.api.security.jwt.JwtService;
 import ke.unify.api.service.UserService;
+import ke.unify.api.service.dto.UserDTO;
 import ke.unify.api.web.rest.advice.exception.BadRequestException;
 import ke.unify.api.web.rest.request.AuthRequest;
 import ke.unify.api.web.rest.request.RegistrationRequest;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 
 @RestController
-@RequestMapping("/api/accounts      ")
+@RequestMapping("/api/accounts")
 public class AccountResource {
 
     private final Logger logger = LoggerFactory.getLogger(AccountResource.class);
@@ -51,7 +52,7 @@ public class AccountResource {
 
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) throws UsernameNotFoundException {
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) throws UsernameNotFoundException, BadRequestException {
         logger.info("REST request to login user: {}", authRequest.getUsername());
 
         Authentication authentication = authenticationManager.authenticate(
@@ -60,8 +61,10 @@ public class AccountResource {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        UserDTO user = userService.findByUsername(authRequest.getUsername());
+
         String token = jwtService.generateToken(authRequest.getUsername());
 
-        return ResponseEntity.ok().body(new AuthResponse(token));
+        return ResponseEntity.ok().body(new AuthResponse(token, user));
     }
 }
