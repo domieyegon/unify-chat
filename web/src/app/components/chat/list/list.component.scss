@@ -1,0 +1,57 @@
+.chat-list-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .header-area {
+        .profile-preview {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 1rem;
+            min-height: 80px;
+            position: relative;
+            margin-bottom: 20px;
+
+            .profile-img {
+                position: absolute;
+                bottom: -20px;
+                height: 70px;
+                width: 70px;
+                color: #fff;
+                background-color: #1746d1;
+                border-radius: 50%;
+                border: 2px solid #fff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .profile-placeholder {
+                    font-size: 30px;
+                    font-weight: 800;
+                    color: #fff;
+                }
+            }
+
+            .desc {
+                margin-left: 90px;
+
+                .username {
+                    display: block;
+                    font-size: 17px;
+                    font-weight: 600;
+                }
+                .caption {
+                    display: block;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+    .contact-section {
+        flex-grow: 1;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 0;
+    }
+}

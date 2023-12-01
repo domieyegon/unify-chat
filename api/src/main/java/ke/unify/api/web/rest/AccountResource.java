@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 
 @RestController
-@RequestMapping("/api/account")
+@RequestMapping("/api/accounts      ")
 public class AccountResource {
 
     private final Logger logger = LoggerFactory.getLogger(AccountResource.class);

@@ -1,13 +1,21 @@
 <div class="login-container">
     <h2>Login</h2>
-    <form>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="form-group">
         <label for="username">Username:</label>
-        <input type="text" class="form-control" id="username" placeholder="Enter your username">
+        <input type="text" formControlName="username" class="form-control" id="username" placeholder="Enter your username">
+        <div class="mt-2" *ngIf="(username?.dirty || username?.touched) && username?.invalid">
+          <span class="is-invalid" *ngIf="username?.errors?.['required']">Username is required</span>
+          <span class="is-invalid" *ngIf="username?.errors?.['email']">Invalid email address</span>
+        </div>
       </div>
       <div class="form-group">
         <label for="password">Password:</label>
-        <input type="password" class="form-control" id="password" placeholder="Enter your password">
+        <input type="password" formControlName="password" class="form-control" id="password" placeholder="Enter your password">
+        <div class="mt-2" *ngIf="(password?.dirty || password?.touched) && password?.invalid">
+          <span class="is-invalid" *ngIf="password?.errors?.['required']">Password is required</span>
+          <span class="is-invalid" *ngIf="password?.errors?.['minlength']">Password too short</span>
+        </div>
       </div>
       <div class="form-group">
         <button type="submit" class="btn btn-primary">Login</button>

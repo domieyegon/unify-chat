@@ -1,10 +1,23 @@
 import {  HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 
 export const httpInterceptor: HttpInterceptorFn = (req, next) => {
-  // headers.append("Authorization", "Bearer ");
 
-  const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkb21pZXllZ29uNzBAZ21haWwuY29tIiwiaWF0IjoxNzAxMzIxMTIzLCJleHAiOjE3MDEzMjI5MjN9.jsTWHPfiSyfALW7KHqQdCKJviI-onqUAHBV7_7Q2HNc";
+  const router= inject(Router);
+
+  
+  if (
+    req.url.includes('login') ||
+    req.url.includes('activate') ||
+    req.url.includes('register')
+  ) {
+    return next(req);
+  }
+
+
+  const token = sessionStorage.getItem('X-Auth-Token');
 
   const request = req.clone({
     setHeaders: {
@@ -12,9 +25,13 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
     }
   });
 
-  console.log(request);
-  return next(request).pipe(
+  console.log(req);
+  return next(req).pipe(
     catchError((err)=> {
+      if ([401,403].includes(err.status)){
+        sessionStorage.removeItem('X-Auth-Token');
+        router.navigateByUrl('/login');
+      }
       return throwError(() => new Error(err.error));
     })
   );
