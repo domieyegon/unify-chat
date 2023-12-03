@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { WebSocketService } from './service/web-socket.service';
 import { ChatComponent } from './components/chat/chat.component';
+import { AccountService } from './service/account.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,13 @@ export class AppComponent implements OnInit {
   title = 'web';
 
 
-  constructor() {}
+  constructor(
+    private router: Router
+    ) {
+      if (!sessionStorage.getItem('isLoggedIn')) {
+        this.router.navigateByUrl("/login");
+      }
+  }
 
   ngOnInit(): void {
   }

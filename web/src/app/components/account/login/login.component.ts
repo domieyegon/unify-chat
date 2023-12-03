@@ -34,7 +34,8 @@ export class LoginComponent {
       next: (res)=>{
         sessionStorage.setItem('X-Auth-Token', res.body.token);
         sessionStorage.setItem('user', JSON.stringify(res.body.user));
-        this.accountService.isLoggedIn.next(true);
+        sessionStorage.setItem('isLoggedIn', 'true');
+        // this.accountService.isLoggedIn.next(true);
         this.router.navigateByUrl("/");
         console.log(res);
       },

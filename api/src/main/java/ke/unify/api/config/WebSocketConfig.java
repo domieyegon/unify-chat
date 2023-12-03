@@ -25,14 +25,6 @@ import java.util.Map;
 @CrossOrigin
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-    private final SimpMessagingTemplate messagingTemplate;
-    private final SimpUserRegistry userRegistry;
-
-    public WebSocketConfig(SimpMessagingTemplate messagingTemplate, SimpUserRegistry userRegistry) {
-        this.messagingTemplate = messagingTemplate;
-        this.userRegistry = userRegistry;
-    }
-
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry
@@ -58,13 +50,4 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.setApplicationDestinationPrefixes("/app");
     }
 
-
-//    @Scheduled(fixedDelay = 5000) // Example: Send messages every 5 seconds
-//    public void sendUserMessages() {
-//        for (SimpUser user : userRegistry.getUsers()) {
-//            String username = user.getName();
-//            String destination = "/user/" + username + "/messages";
-//            messagingTemplate.convertAndSendToUser(username, destination, "Hello, " + username + "!");
-//        }
-//    }
 }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WebSocketService } from '../../../service/web-socket.service';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +18,11 @@ export class MessagesComponent implements OnInit, AfterViewInit {
   maxHeight: number =0;
   textareaBorderWidth: number =0;
   receivedMessages: any[] = [];
-  user:any;
+  user:any = JSON.parse(sessionStorage.getItem('user') || '{}');
+
+  // @Input() chats:any[] = [];
+  @Input() selectedChat:any;
+  @Output() sendMessageEmitter = new EventEmitter<any>();
 
   chatForm:any = {
     message: '',
@@ -41,27 +45,22 @@ export class MessagesComponent implements OnInit, AfterViewInit {
     // this.websocketService.messageReceived.subscribe((message: any) => {
     //   this.receivedMessages.push(message);
     // });
-
-
-    this.websocketService.connect().subscribe(()=> {
-      this.websocketService.getUser().subscribe((user:any)=>{
-        this.user = user;
-      });
-
-
-      this.websocketService.receiveMessages().subscribe((message: any) => {
-        console.log(message);
-        this.receivedMessages.push(message);
-      });
-    });
   }
 
 
   sendMessage(): void {
     this.chatForm.sender = this.user;
-    console.log(this.chatForm)
-    this.websocketService.sendMessage(this.chatForm);
+    this.chatForm.receiver = this.getReceiver();
+    this.sendMessageEmitter.next(this.chatForm);
     this.resetChatForm()
+  }
+
+  getReceiver() {
+    return Object.assign( {
+      id: this.selectedChat.id,
+      email: this.selectedChat.email,
+      fullName: this.selectedChat.fullName
+    });
   }
   
   

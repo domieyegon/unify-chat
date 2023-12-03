@@ -1,5 +1,8 @@
 package ke.unify.api.web.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import ke.unify.api.service.ChatService;
 import ke.unify.api.service.dto.ChatDTO;
 import ke.unify.api.service.dto.UserDTO;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 public class WebSocketResource {
 
+    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
     private final Logger logger = LoggerFactory.getLogger(WebSocketResource.class);
 
     private final ChatService chatService;
@@ -31,12 +35,15 @@ public class WebSocketResource {
     }
 
     @MessageMapping("/chat")
-    public void saveAndSendMessage(@Payload ChatDTO chatDTO) {
-        logger.info("WebSocket request to save and send chat: {}", chatDTO);
+    public void saveAndSendMessage(@Payload String message) throws JsonProcessingException {
+        logger.info("WebSocket request to save and send chat: {}", message);
 
-        ChatDTO result = chatService.save(chatDTO);
+        ChatDTO result = chatService.save(objectMapper.readValue(message, ChatDTO.class));
+
+        String messageBody = objectMapper.writeValueAsString(result);
+        logger.info("userId: {}", result.getReceiver().getId());
 
         //Broadcast to all subscribers
-        messagingTemplate.convertAndSend("/topic/messages", result);
+        messagingTemplate.convertAndSend("/topic/"+ result.getReceiver().getId()+"/messages", messageBody);
     }
 }

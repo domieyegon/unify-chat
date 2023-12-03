@@ -30,6 +30,7 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((err)=> {
       if ([401,403].includes(err.status)){
         sessionStorage.removeItem('X-Auth-Token');
+        sessionStorage.removeItem('isLoggedIn')
         router.navigateByUrl('/login');
       }
       return throwError(() => new Error(err.error));

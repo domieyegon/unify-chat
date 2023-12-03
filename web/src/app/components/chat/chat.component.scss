@@ -13,8 +13,54 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
 
+  .landing-page,
   app-messages {
     flex: 1;
     display: flex;
+  }
+
+  .landing-page {
+    // justify-content: center;
+    // align-items: center;
+    padding: 4rem;
+    .header {
+      padding: 10px 1rem;
+
+      .profile-preview {
+          display: flex;
+          align-items: center;
+
+          .profile-img {
+              width: 80px;
+              height: 80px;
+              background-color: #fff;
+              border-radius: 50%;
+              overflow: hidden;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              img {
+                  object-fit: cover;
+                  flex: 1;
+              }
+          }
+
+          .desc {
+              margin-left: 10px;
+
+              .welcome {
+                display: block;
+                font-size: 25px;
+              }
+
+              .username {
+                  display: block;
+                  font-size: 30px;
+                  font-weight: 600;
+              }
+          }
+      }
+  }
   }
 }

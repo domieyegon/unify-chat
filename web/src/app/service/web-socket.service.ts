@@ -39,7 +39,9 @@ export class WebSocketService {
 
   connect():Observable<boolean>{
     const socket = new SockJS('http://localhost:8080/u-chat-websocket');
-    this.stompClient = Stomp.over(socket);
+    this.stompClient = Stomp.over(() => {
+      return new SockJS('http://localhost:8080/u-chat-websocket');
+    });
     this.stompClient.withCredentials = true; // Enable credentials
 
     return new Observable((observer) => {
@@ -60,9 +62,9 @@ export class WebSocketService {
     this.stompClient.send('/app/chat', {}, JSON.stringify(message));
   }
 
-  receiveMessages(): Observable<any> {
+  receiveMessages(userId: any): Observable<any> {
     return new Observable((observer) => {
-      this.stompClient.subscribe('/topic/messages', (message:any) => {
+      this.stompClient.subscribe(`/topic/${userId}/messages`, (message:any) => {
         observer.next(JSON.parse(message.body));
       });
     });
