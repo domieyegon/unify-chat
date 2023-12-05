@@ -109,6 +109,10 @@
 				&.dot-2 { animation: typing 3s 250ms infinite }
 				&.dot-3 { animation: typing 3s 500ms infinite }
             }
+
+            span {
+                white-space: pre-wrap;
+            }
         }
     }
 
@@ -169,11 +173,28 @@
         .send-button {
             align-self: flex-end;
             font-size: 16px;
-            padding: 12px;
+            padding: 0;
             border: none;
-            background-color: #1330d4;
+            background-color: var(--primary-color);
             color: #fff;
             border-radius: 15px;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:disabled,
+            &[disabled] {
+                background-color: #8d8a8a;
+                cursor: not-allowed;
+            }
+
+            img {
+                object-fit: contain;
+            }
         }
     }
 }

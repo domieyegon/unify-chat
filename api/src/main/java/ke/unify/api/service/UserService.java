@@ -2,6 +2,7 @@ package ke.unify.api.service;
 
 import ke.unify.api.domain.User;
 import ke.unify.api.repository.UserRepository;
+import ke.unify.api.security.SecurityUtils;
 import ke.unify.api.service.dto.UserDTO;
 import ke.unify.api.service.mapper.UserMapper;
 import ke.unify.api.service.util.UserUtil;
@@ -16,6 +17,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -60,5 +64,11 @@ public class UserService implements UserDetailsService {
     public UserDTO findByUsername(String username) throws BadRequestException {
         logger.info("Request to get User by username: {}", username);
         return userRepository.findByUsername(username).map(userMapper::toDto).orElseThrow(()->new BadRequestException("User not found"));
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserDTO> findAll() {
+        logger.info("Request to get all users");
+        return userRepository.findByUsernameNot(SecurityUtils.getCurrentUsername()).stream().map(userMapper::toDto).collect(Collectors.toList());
     }
 }

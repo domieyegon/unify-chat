@@ -25,8 +25,7 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
     }
   });
 
-  console.log(req);
-  return next(req).pipe(
+  return next(request).pipe(
     catchError((err)=> {
       if ([401,403].includes(err.status)){
         sessionStorage.removeItem('X-Auth-Token');

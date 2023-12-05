@@ -31,7 +31,8 @@
     </div>
     <div class="chat-footer">
         <div class="input-container">
-            <button class="emoji-button">😊</button>
+            <button class="emoji-button"><i class="far fa-smile"></i></button>
+            <!-- <i class="fa-regular fa-face-smile"></i> -->
             <textarea #textareaInputField  
             (input)="onInput()"
             (keydown)="onKeyDown($event)" 
@@ -40,6 +41,8 @@
             placeholder="Type message..." autofocus="true">
         </textarea>
         </div>
-        <button class="send-button" (click)="onClick()" type="button">Send</button>
+        <button class="send-button" (click)="onClick()" type="button" [disabled]="!chatForm.message">
+            <img src="assets/icons/send.png" alt="" srcset="">
+        </button>
     </div>
 </div>

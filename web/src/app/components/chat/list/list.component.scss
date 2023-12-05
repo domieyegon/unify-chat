@@ -1,4 +1,5 @@
 .chat-list-container {
+    position: relative;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -32,107 +33,148 @@
                 }
             }
 
-            .desc {
+            .content-wrapper {
+                display: flex;
+                justify-content: space-between;
                 margin-left: 90px;
 
-                .username {
-                    display: block;
-                    font-size: 17px;
-                    font-weight: 600;
-                }
-                .caption {
-                    display: block;
-                    font-size: 14px;
+                .desc {
+
+                    .username {
+                        display: block;
+                        font-size: 17px;
+                        font-weight: 600;
+                    }
+                    .caption {
+                        display: block;
+                        font-size: 14px;
+                    }
                 }
             }
+
         }
     }
 
-    .contact-section {
-        flex-grow: 1;
-        overflow-x: hidden;
-        overflow-y: auto;
-        padding: 0;
-        scrollbar-width: thin; /* For Firefox */
-        scrollbar-color: #ddd #f4f4f4;
-        cursor: pointer;
+    .contact-search {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background: #fff;
+        visibility: hidden;
+        display: flex;
+        flex-direction: column;
 
-        &::-webkit-scrollbar {
-            width: 4px;
+        &.search {
+            visibility: visible;
         }
 
-        &::-webkit-scrollbar-thumb {
-            background-color: #ddd;
-            border-radius: 15px;
-        }
-
-        .contact-card {
-            display: flex;
-            border-bottom: 1px solid #e9edef;
+        .header {
+            background-color: var(--primary-color);
             padding: 1rem;
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+            font-size: 20px;
 
-            &:hover {
-                background-color: #ecf9ff;
+            button {
+                background: transparent;
+                color: #fff;
+                border: 0;
+                padding-right: 10px;
             }
+        }
+    }
+}
 
-            &.active,
-            &:active,
-            &:focus {
-                background-color: #d3efff;
-            }
 
-            .avatar {
-                width: 50px;
-                height: 50px;
-                background-color: #fff;
-                border-radius: 50%;
-                // border: 1px solid #ccc;
-                overflow: hidden;
-                display: flex;
-                justify-content: center;
-                align-items: center;
 
-                img {
-                    object-fit: cover;
-                    flex: 1;
-                }
-            }
+.contacts,
+.contact-section {
+    flex-grow: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #ddd #f4f4f4;
+    cursor: pointer;
 
-            .details {
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #ddd;
+        border-radius: 15px;
+    }
+
+    .contact-card {
+        display: flex;
+        border-bottom: 1px solid #e9edef;
+        padding: 1rem;
+
+        &:hover {
+            background-color: #ecf9ff;
+        }
+
+        &.active,
+        &:active,
+        &:focus {
+            background-color: #d3efff;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            border-radius: 50%;
+            // border: 1px solid #ccc;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                object-fit: cover;
                 flex: 1;
-                margin-left: 8px;
-                overflow: hidden;
+            }
+        }
 
-                .name-and-time {
-                    display: flex;
-                    .full-name {
-                        flex: 1;
-                        display: block;
-                        overflow: hidden;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;
-                        font-weight: 500;
-                        color: #111b21;
-                        line-height: 1.5;
-                        font-size: 17px;
-                    }
+        .details {
+            flex: 1;
+            margin-left: 8px;
+            overflow: hidden;
 
-
-                    .last-message-time {
-                        display: block;
-                        margin-left: 5px;
-                        color: #667781;
-                    }
-                }
-
-                .last-message {
+            .name-and-time {
+                display: flex;
+                .full-name {
+                    flex: 1;
                     display: block;
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
-                    color: #667781;
-                    font-size: 14px;
+                    font-weight: 500;
+                    color: #111b21;
+                    line-height: 1.5;
+                    font-size: 17px;
                 }
+
+
+                .last-message-time {
+                    display: block;
+                    margin-left: 5px;
+                    color: #667781;
+                }
+            }
+
+            .last-message {
+                display: block;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                color: #667781;
+                font-size: 14px;
             }
         }
     }

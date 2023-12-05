@@ -14,6 +14,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.security.Principal;
+
 @Controller
 @CrossOrigin
 public class WebSocketResource {
@@ -35,8 +37,8 @@ public class WebSocketResource {
     }
 
     @MessageMapping("/chat")
-    public void saveAndSendMessage(@Payload String message) throws JsonProcessingException {
-        logger.info("WebSocket request to save and send chat: {}", message);
+    public void saveAndSendMessage(@Payload String message, Principal principal) throws JsonProcessingException {
+        logger.info("WebSocket request to save and send chat: {}, {}", message, principal);
 
         ChatDTO result = chatService.save(objectMapper.readValue(message, ChatDTO.class));
 

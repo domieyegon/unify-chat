@@ -51,6 +51,7 @@ export class MessagesComponent implements OnInit, AfterViewInit {
   sendMessage(): void {
     this.chatForm.sender = this.user;
     this.chatForm.receiver = this.getReceiver();
+    this.chatForm.message = this.chatForm.message.trim();
     this.sendMessageEmitter.next(this.chatForm);
     this.resetChatForm()
   }
@@ -90,8 +91,15 @@ export class MessagesComponent implements OnInit, AfterViewInit {
   }
 
   private onSubmitOrPerformAction() {
-    this.sendMessage();
+    if (!this.whitespaceExists()){
+      this.sendMessage();
+      this.resetChatForm();
+    }
     this.messageBody.nativeElement.scrollTop = this.messageBody.nativeElement.scrollHeight;
     this.textarea.nativeElement.style.height = 'auto';
   }
+
+  public whitespaceExists() {
+    return (this.chatForm.message || '').trim().length? false : true;       
+}
 }

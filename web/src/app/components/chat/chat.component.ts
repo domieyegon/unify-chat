@@ -16,15 +16,7 @@ export class ChatComponent implements OnInit {
   user:any = JSON.parse(sessionStorage.getItem('user') || '{}');
 
 
-  contacts:any[]=[
-    {
-        id: 8,
-        email: "dyegon1@meliora.tech",
-        fullName: "Erick",
-        lastMessage: "Hello sir",
-        sentAt: new Date(),
-    }
-  ].filter((chat:any)=> chat.id !== this.user.id);
+  contacts:any[]=[];
   sentMessages:any[]=[];
   allConversations:any[]=[];
   userSpecificConversations:any[]=[];
@@ -77,8 +69,11 @@ export class ChatComponent implements OnInit {
   getContacts(contact:any){
     if (this.contacts.length > 0){
       let index = this.contacts.findIndex((c:any)=> c?.id === contact?.id);
+      console.log(index)
       if (index > 0){
         this.contacts.splice(index, 1);
+        this.contacts.unshift(contact);
+      } else if (index == -1) {
         this.contacts.unshift(contact);
       } else {
         this.contacts[index] = contact;
@@ -102,7 +97,7 @@ export class ChatComponent implements OnInit {
     this.isViewChat = true;
     this.selectedChat = user;
     this.userSpecificConversations=[];
-    this.userSpecificConversations =this.allConversations.filter((chat:any)=> chat.sender.id === this.user.id || chat.sender.id === user.id);
+    this.userSpecificConversations =this.allConversations.filter((chat:any)=> (chat.sender.id === this.user.id && chat.receiver.id === user.id) || (chat.sender.id === user.id && chat.receiver.id === this.user.id));
     this.selectedChat.chats = this.userSpecificConversations;
   }
 

@@ -5,9 +5,16 @@
                 <!-- <img src="../../../../favicon.ico" alt=""> -->
                 <span class="profile-placeholder">DY</span>
             </div>
-            <div class="desc">
-                <span class="username">{{user?.fullName}}</span>
-                <span class="caption">Being crazy</span>
+            <div class="content-wrapper">
+                <div class="desc">
+                    <span class="username">{{user?.fullName}}</span>
+                    <span class="caption">Being crazy</span>
+                </div>
+                <div class="actions">
+                    <span (click)="isSearchItem = !isSearchItem" type="button" title="New chat">
+                        <img src="assets/icons/new-message.png" alt="New chat">
+                    </span>
+                </div>
             </div>
         </div>
     </header>
@@ -27,4 +34,26 @@
             </div>
         </div>
     </section>
+
+    <div class="contact-search" [ngClass]="{'search': isSearchItem}">
+        <div class="header">
+            <button (click)="isSearchItem = !isSearchItem"><i class="fa fa-arrow-left"></i></button>
+            New chat
+        </div>
+        <section class="contacts">
+            <div *ngFor="let contact of allContacts" (click)="viewChat(contact); isSearchItem=false;" class="contact-card">
+                <div class="avatar">
+                    <img src="../../../../favicon.ico" alt="">
+                </div>
+                <div class="details">
+                    <div class="name-and-time">
+                        <span class="full-name">{{contact?.fullName}}</span>
+                    </div>
+                    <span class="last-message">
+                        Being crazy
+                    </span>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>
