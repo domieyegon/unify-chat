@@ -21,7 +21,7 @@
     <section class="contact-section">
         <div *ngFor="let chat of messages" (click)="viewChat(chat)" [ngClass]="{'active': chat?.id === currentActiveId}" class="contact-card">
             <div class="avatar">
-                <img src="../../../../favicon.ico" alt="">
+                <img src="assets/images/man.png" alt="">
             </div>
             <div class="details">
                 <div class="name-and-time">
@@ -43,14 +43,14 @@
         <section class="contacts">
             <div *ngFor="let contact of allContacts" (click)="viewChat(contact); isSearchItem=false;" class="contact-card">
                 <div class="avatar">
-                    <img src="../../../../favicon.ico" alt="">
+                    <img src="assets/images/man.png" alt="">
                 </div>
                 <div class="details">
                     <div class="name-and-time">
                         <span class="full-name">{{contact?.fullName}}</span>
                     </div>
                     <span class="last-message">
-                        Being crazy
+                        {{contact?.slogan}}
                     </span>
                 </div>
             </div>

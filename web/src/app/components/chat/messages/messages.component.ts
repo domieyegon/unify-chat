@@ -15,6 +15,7 @@ export class MessagesComponent implements OnInit, AfterViewInit {
   @ViewChild('textareaInputField') textarea!: ElementRef;
   @ViewChild('messageBody') messageBody!: ElementRef;
 
+  isTyping = false;
   maxHeight: number =0;
   textareaBorderWidth: number =0;
   receivedMessages: any[] = [];
@@ -93,6 +94,7 @@ export class MessagesComponent implements OnInit, AfterViewInit {
   private onSubmitOrPerformAction() {
     if (!this.whitespaceExists()){
       this.sendMessage();
+    } else {
       this.resetChatForm();
     }
     this.messageBody.nativeElement.scrollTop = this.messageBody.nativeElement.scrollHeight;

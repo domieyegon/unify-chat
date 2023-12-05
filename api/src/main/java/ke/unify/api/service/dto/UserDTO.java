@@ -5,6 +5,9 @@ public class UserDTO {
     private String fullName;
     private String email;
     private String msisdn;
+    private String uuid;
+    private String logoUrl;
+    private String slogan;
 
     public Long getId() {
         return id;
@@ -38,4 +41,27 @@ public class UserDTO {
         this.msisdn = msisdn;
     }
 
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
+
+    public String getSlogan() {
+        return slogan;
+    }
+
+    public void setSlogan(String slogan) {
+        this.slogan = slogan;
+    }
 }

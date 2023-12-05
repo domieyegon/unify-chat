@@ -24,6 +24,7 @@ public class UserUtil {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setActive(false);
         user.setRoles(request.getRoles());
+        user.setUuid(Base62ConverterUtil.generateUuid());
         return user;
     }
 }

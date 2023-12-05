@@ -41,7 +41,8 @@
               align-items: center;
 
               img {
-                  object-fit: cover;
+                  object-fit: contain;
+                  width: 100%;
                   flex: 1;
               }
           }
@@ -61,6 +62,25 @@
               }
           }
       }
-  }
+    }
+
+    .content-section {
+      padding: 20px 1rem;
+
+      .info {
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid #e9edef;
+
+        h3 {
+          font-size: 22px;
+          font-weight: 600;
+        }
+
+        p {
+          margin: 0;
+        }
+      }
+    }
   }
 }

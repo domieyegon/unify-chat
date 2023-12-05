@@ -88,6 +88,9 @@ export class ChatComponent implements OnInit {
       id: user.id,
       email: user.email,
       fullName: user.fullName,
+      logoUrl: user.logoUrl,
+      slogan: user.slogan,
+      uuid: user.uuid,
       lastMessage: message,
       sentAt: sentAt
     })

@@ -23,6 +23,10 @@ public class User implements UserDetails {
     private String password;
     private Boolean active;
     private String roles;
+    private String uuid;
+    private String logoUrl;
+    @Column(length = 500)
+    private String slogan;
 
     public Long getId() {
         return id;
@@ -83,8 +87,29 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public String getUuid() {
+        return uuid;
+    }
 
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
+
+    public String getSlogan() {
+        return slogan;
+    }
+
+    public void setSlogan(String slogan) {
+        this.slogan = slogan;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -129,6 +154,7 @@ public class User implements UserDetails {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", msisdn='" + msisdn + '\'' +
+                ", uuid='" + uuid + '\'' +
                 '}';
     }
 }

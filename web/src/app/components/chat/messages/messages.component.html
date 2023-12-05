@@ -2,11 +2,11 @@
     <header class="chat-header">
         <div class="profile-preview">
             <div class="profile-img">
-                <img src="../../../../favicon.ico" alt="">
+                <img src="assets/images/man.png" alt="">
             </div>
             <div class="desc">
                 <span class="username">{{selectedChat?.fullName}}</span>
-                <span class="caption">Being crazy</span>
+                <span class="caption">{{selectedChat?.slogan}}</span>
             </div>
         </div>
     </header>
@@ -18,10 +18,15 @@
                 <span>11:24 AM</span>
             </div>
             <div *ngFor="let chat of selectedChat?.chats" [ngClass]="{'outgoing': chat?.sender?.id === user?.id}" class="message-card">
-                <span>{{chat?.message}}</span>
+                <div class="message-body">
+                    <span>{{chat?.message}}</span>
+                </div>
+                <div class="sent-time">
+                    <span>{{chat.sentAt | date: 'shortTime'}}</span>
+                </div>
             </div>
 
-            <div class="message-card">
+            <div *ngIf="isTyping" class="message-card">
                 <span class="typing dot-1"></span>
                 <span class="typing dot-2"></span>
                 <span class="typing dot-3"></span>
