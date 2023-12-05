@@ -1,0 +1,40 @@
+<div class="register-container">
+    <h2>Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="register()"><div class="form-group">
+        <label for="fullName">Full name:</label>
+        <input type="text" formControlName="fullName" class="form-control" id="fullName" placeholder="e.g John doe">
+        <div class="mt-2" *ngIf="(fullName?.dirty || fullName?.touched) && fullName?.invalid">
+          <span class="is-invalid" *ngIf="fullName?.errors?.['required']">Full name is required</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="msisdn">Phone number:</label>
+        <input type="text" formControlName="msisdn" class="form-control" id="msisdn" placeholder="e.g 254712345678">
+        <div class="mt-2" *ngIf="(msisdn?.dirty || msisdn?.touched) && msisdn?.invalid">
+          <span class="is-invalid" *ngIf="msisdn?.errors?.['required']">Phone number is required</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" formControlName="email" class="form-control" id="email" placeholder="Enter your email">
+        <div class="mt-2" *ngIf="(email?.dirty || email?.touched) && email?.invalid">
+          <span class="is-invalid" *ngIf="email?.errors?.['required']">Email is required</span>
+          <span class="is-invalid" *ngIf="email?.errors?.['email']">Invalid email address</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" formControlName="password" class="form-control" id="password" placeholder="Enter your password">
+        <div class="mt-2" *ngIf="(password?.dirty || password?.touched) && password?.invalid">
+          <span class="is-invalid" *ngIf="password?.errors?.['required']">Password is required</span>
+          <span class="is-invalid" *ngIf="password?.errors?.['minlength']">Password too short</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Register</button>
+      </div>
+    </form>
+    <div class="login-link">
+      <p>Already have an account? <a [routerLink]="['/login']" >Login</a></p>
+    </div>
+  </div>

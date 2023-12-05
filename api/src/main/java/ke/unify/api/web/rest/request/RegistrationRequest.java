@@ -6,6 +6,8 @@ public class RegistrationRequest {
     private String msisdn;
     private String password;
     private String roles;
+    private String logoUrl;
+    private String slogan;
 
     public String getFullName() {
         return fullName;
@@ -45,5 +47,21 @@ public class RegistrationRequest {
 
     public void setRoles(String roles) {
         this.roles = roles;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
+
+    public String getSlogan() {
+        return slogan;
+    }
+
+    public void setSlogan(String slogan) {
+        this.slogan = slogan;
     }
 }

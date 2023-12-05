@@ -2,7 +2,9 @@ package ke.unify.api.web.rest;
 
 import ke.unify.api.security.jwt.JwtService;
 import ke.unify.api.service.UserService;
+import ke.unify.api.service.dto.UploadResponse;
 import ke.unify.api.service.dto.UserDTO;
+import ke.unify.api.service.util.FileUtil;
 import ke.unify.api.web.rest.advice.exception.BadRequestException;
 import ke.unify.api.web.rest.request.AuthRequest;
 import ke.unify.api.web.rest.request.RegistrationRequest;
@@ -10,18 +12,14 @@ import ke.unify.api.web.rest.response.AppResponse;
 import ke.unify.api.web.rest.response.AuthResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Arrays;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -66,5 +64,11 @@ public class AccountResource {
         String token = jwtService.generateToken(authRequest.getUsername());
 
         return ResponseEntity.ok().body(new AuthResponse(token, user));
+    }
+
+    @PostMapping("/upload/profile")
+    public ResponseEntity<UploadResponse> uploadProfile(@RequestParam(value = "file") MultipartFile file){
+        logger.info("REST Request to upload Profile photo");
+        return ResponseEntity.ok().body(FileUtil.uploadFile(file, logger));
     }
 }

@@ -20,9 +20,21 @@
   }
 
   .landing-page {
-    // justify-content: center;
-    // align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 4rem;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #ddd #f4f4f4;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #ddd;
+        border-radius: 15px;
+    }
+
     .header {
       padding: 10px 1rem;
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
-import { WebSocketService } from './service/web-socket.service';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { ChatComponent } from './components/chat/chat.component';
+import { NavigationService } from './service/navigation.service';
 import { AccountService } from './service/account.service';
 
 @Component({
@@ -17,11 +17,27 @@ export class AppComponent implements OnInit {
 
 
   constructor(
-    private router: Router
+    private router: Router,
+    private navigationService: NavigationService,
+    private accountService: AccountService
     ) {
-      if (!sessionStorage.getItem('isLoggedIn')) {
-        this.router.navigateByUrl("/login");
-      }
+
+      let isLoggedIn = sessionStorage.getItem('isLoggedIn');
+      this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          if (this.router.url == '/login' && isLoggedIn){
+            this.navigationService.back();
+          }
+        }
+      });
+      
+      setTimeout(()=>{
+        if (!isLoggedIn && !this.accountService.isPublicPage()) {
+          this.router.navigateByUrl("/login");
+        }
+      },2);
+      
+     
   }
 
   ngOnInit(): void {
