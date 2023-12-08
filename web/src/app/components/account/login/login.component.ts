@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccountService } from '../../../service/account.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -11,7 +11,7 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.email]),
@@ -22,6 +22,9 @@ export class LoginComponent {
     private accountService:AccountService,
     private router:Router,
     ) {}
+  ngOnInit(): void {
+    this.getCurrentLocation();
+  }
 
   login(){
 
@@ -41,6 +44,38 @@ export class LoginComponent {
       },
       error: (err)=>{
         console.error(err);
+      }
+    });
+  }
+
+
+
+  getCurrentLocation() {
+    return new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            if (position) {
+              console.log(
+                'Latitude: ' +
+                  position.coords.latitude +
+                  'Longitude: ' +
+                  position.coords.longitude
+              );
+              let lat = position.coords.latitude;
+              let lng = position.coords.longitude;
+
+              const location = {
+                lat,
+                lng,
+              };
+              resolve(location);
+            }
+          },
+          (error) => console.log(error)
+        );
+      } else {
+        reject('Geolocation is not supported by this browser.');
       }
     });
   }

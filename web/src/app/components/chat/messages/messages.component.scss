@@ -229,3 +229,16 @@
 		opacity: 1;
 	}
 }
+
+
+.checkmark::before {
+    content: '\2713'; /* Unicode character for check mark */
+    color: green;     /* Color of the check mark */
+    font-size: 20px;   /* Adjust the font size as needed */
+  }
+  
+  .crossmark::before {
+    content: '\2717'; /* Unicode character for cross mark */
+    color: red;       /* Color of the cross mark */
+    font-size: 20px;   /* Adjust the font size as needed */
+  }
