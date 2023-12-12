@@ -27,6 +27,9 @@ export class ChatComponent implements OnInit {
 
 
   ngOnInit(): void {
+    if (!sessionStorage.getItem('isLoggedIn')){
+      return;
+    }
     this.connectToWebSocket();
   }
 

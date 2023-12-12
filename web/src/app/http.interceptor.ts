@@ -32,7 +32,7 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
         sessionStorage.removeItem('isLoggedIn')
         router.navigateByUrl('/login');
       }
-      return throwError(() => new Error(err.error));
+      return throwError(() => new Error(err.error.message));
     })
   );
 };

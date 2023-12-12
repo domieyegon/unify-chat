@@ -13,6 +13,9 @@ import { AccountService } from '../../../service/account.service';
 })
 export class RegisterComponent {
 
+  errorMessage = '';
+  isRegisteredSuccessfully=false;
+
   registerForm = new FormGroup({
     fullName: new FormControl('', [Validators.required]),
     msisdn: new FormControl('', [Validators.required]),
@@ -27,6 +30,7 @@ export class RegisterComponent {
 
 
   register(){
+    this.errorMessage = '';
     this.registerForm.markAllAsTouched();
     if (this.registerForm.invalid){
       return;
@@ -34,30 +38,12 @@ export class RegisterComponent {
 
     this.accountService.register(this.registerForm.value).subscribe({
       next: (res)=>{
-        this.login();
+        this.isRegisteredSuccessfully=true;
       },
       error: (err)=>{
-        console.error(err);
-      }
-    });
-  }
+        this.isRegisteredSuccessfully=false;
+        this.errorMessage = err?.error?.message || "Something went wrong while trying to register!"
 
-  login(){
-
-    let userInfo = {
-      username: this.email?.value,
-      password: this.password?.value
-    }
-
-    this.accountService.login(userInfo).subscribe({
-      next: (res)=>{
-        sessionStorage.setItem('X-Auth-Token', res.body.token);
-        sessionStorage.setItem('user', JSON.stringify(res.body.user));
-        sessionStorage.setItem('isLoggedIn', 'true');
-        this.router.navigateByUrl("/");
-        console.log(res);
-      },
-      error: (err)=>{
         console.error(err);
       }
     });

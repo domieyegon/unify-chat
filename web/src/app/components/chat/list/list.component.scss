@@ -39,15 +39,33 @@
                 margin-left: 90px;
 
                 .desc {
+                    overflow: hidden;
+                    padding-right: 16px;
 
                     .username {
                         display: block;
                         font-size: 17px;
                         font-weight: 600;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
                     }
                     .caption {
                         display: block;
                         font-size: 14px;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
+                }
+
+                .actions {
+                    display: flex;
+                    align-items: center;
+                    span {
+                        padding: 8px;
+                        font-size: 20px;
+                        cursor: pointer;
                     }
                 }
             }

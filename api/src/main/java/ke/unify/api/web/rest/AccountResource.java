@@ -21,6 +21,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/accounts")
 public class AccountResource {
@@ -64,6 +66,19 @@ public class AccountResource {
         String token = jwtService.generateToken(authRequest.getUsername());
 
         return ResponseEntity.ok().body(new AuthResponse(token, user));
+    }
+
+    @PostMapping("/activate")
+    public ResponseEntity<Map<String, String>> activate(@RequestBody Map<String, String> request) throws UsernameNotFoundException, BadRequestException {
+        logger.info("REST request to activate user: {}", request);
+        String key = request.get("key");
+        if (key == null || key.isEmpty()){
+            throw new BadRequestException("Invalid activation request");
+        }
+
+        Map<String, String> response = userService.activateAccount(key);
+
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/upload/profile")

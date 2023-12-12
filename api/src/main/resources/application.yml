@@ -16,6 +16,23 @@ spring:
     caffeine:
       spec: maximumSize=100
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${SENDER_EMAIL_ADDRESS}
+    password: ${SENDER_EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+
 
 server:
   error:

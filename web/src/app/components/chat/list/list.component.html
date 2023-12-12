@@ -8,11 +8,14 @@
             <div class="content-wrapper">
                 <div class="desc">
                     <span class="username">{{user?.fullName}}</span>
-                    <span class="caption">Being crazy</span>
+                    <span class="caption">{{user?.slogan}}</span>
                 </div>
                 <div class="actions">
                     <span (click)="isSearchItem = !isSearchItem" type="button" title="New chat">
                         <img src="assets/icons/new-message.png" alt="New chat">
+                    </span>
+                    <span>
+                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                     </span>
                 </div>
             </div>

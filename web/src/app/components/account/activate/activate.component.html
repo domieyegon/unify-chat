@@ -1,0 +1,14 @@
+<div class="activation-container">
+    <div *ngIf="successMessage" class="content">
+        <img src="assets/icons/checked.png" alt="Success">
+        <h2>Welcome on board!</h2>
+        <p>Your account has been activated successfully. You can now login.</p>
+        <button class="btn" [routerLink]="['/login']" routerLinkActive="router-link-active" >Proceed to login</button>
+    </div>
+    <div *ngIf="failureMessage" class="content">
+        <img src="assets/icons/cancel.png" alt="Error">
+        <h2 style="color: #dc3545;">Activation failed!</h2>
+        <p>Oops! There was an error while activation your account. <br> Failure reason: <span style="color: #dc3545;">{{failureMessage}}</span>. </p>
+        <!-- <button class="btn" [routerLink]="['/login']" routerLinkActive="router-link-active" >Proceed to login</button> -->
+    </div>
+</div>

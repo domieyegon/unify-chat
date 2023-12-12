@@ -22,6 +22,10 @@ export class AccountService {
     return this.http.post<any>(`${this.resourceUrl}/register`, req, {observe: 'response'});
   }
 
+  activate(req:any): Observable<any>{
+    return this.http.post<any>(`${this.resourceUrl}/activate`, req, {observe: 'response'});
+  }
+
   isPublicPage(){
     return (
       this.router.url.includes('login') ||
